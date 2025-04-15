@@ -77,10 +77,16 @@ const deleteProductFromDB = async (productId: string) => {
   return result
 }
 
+const getMultipleProductsFromDB = async (productIds: string[]) => {
+  const result = await Product.find({ _id: { $in: productIds } })
+  return result
+}
+
 export const ProductServices = {
   createProductIntoDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
   updateProductInDB,
   deleteProductFromDB,
+  getMultipleProductsFromDB,
 }

@@ -19,6 +19,7 @@ router.put(
   validateRequest(ProductValidation.updateProductValidationSchema),
   ProductControllers.updateProduct,
 )
+router.post('/multiple', ProductControllers.getMultipleProducts)
 router.delete('/:productId', auth('admin'), ProductControllers.deleteProduct)
 
 export const ProductRoutes = router
