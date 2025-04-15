@@ -40,6 +40,26 @@ const getSingleProduct = catchAsync(async (req, res): Promise<void> => {
   })
 })
 
+const getMultipleProducts = catchAsync(async (req, res) => {
+  const { ids } = req.body
+  if (!ids || !Array.isArray(ids)) {
+    return sendResponse(res, {
+      success: false,
+      message: 'Invalid request: product IDs array is required',
+      statusCode: status.BAD_REQUEST,
+    })
+  }
+
+  const result = await ProductServices.getMultipleProductsFromDB(ids)
+
+  sendResponse(res, {
+    success: true,
+    message: 'Products retrieved successfully',
+    statusCode: status.OK,
+    data: result,
+  })
+})
+
 const updateProduct = catchAsync(async (req, res): Promise<void> => {
   const productId = req.params.productId
   const updatedData = req.body
@@ -71,4 +91,5 @@ export const ProductControllers = {
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  getMultipleProducts,
 }
